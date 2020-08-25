@@ -1,0 +1,62 @@
+<button class="m-2" mat-raised-button color="primary" (click)="getAll()">Buscar</button> 
+<mat-form-field>
+    <mat-label>Filtro</mat-label>
+    <input matInput (keyup)="applyFilter($event)">
+  </mat-form-field>
+  
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+  
+      <!-- Nombre Column -->
+      <ng-container matColumnDef="id_Usuario">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </th>
+        <td mat-cell *matCellDef="let row"> {{row.id_Usuario}} </td>
+      </ng-container>
+  
+      <!-- Identificación Column -->
+      <ng-container matColumnDef="nombre_Producto">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Producto </th>
+        <td mat-cell *matCellDef="let row"> {{row.nombre_Producto}} </td>
+      </ng-container>
+
+      <!-- Correo Column -->
+      <ng-container matColumnDef="cantidad">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Cantidad </th>
+        <td mat-cell *matCellDef="let row" > {{row.cantidad}} </td>
+      </ng-container>
+
+      <!-- Dirección Column -->
+      <ng-container matColumnDef="precio_Venta_Producto">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio </th>
+        <td mat-cell *matCellDef="let row" > {{row.precio_Venta_Producto}} </td>
+      </ng-container>
+
+       <!-- Celular Column -->
+       <ng-container matColumnDef="fecha_Creacion">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+        <td mat-cell *matCellDef="let row" > {{row.fecha_Creacion | date: 'yyyy-MM-dd hh:mm:ss'}} </td>
+      </ng-container>
+
+       <!-- Teléfono Column -->
+       <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+        <td mat-cell *matCellDef="let row" > {{row.estado}} </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actionsColumn">
+        <th mat-header-cell *matHeaderCellDef>
+            <button class="m-2" mat-raised-button color="primary" (click)="goEdit(0)">Nuevo</button> 
+        </th>
+        <td mat-cell *matCellDef="let row"> 
+            <button mat-button type="button" color="primary" (click)="goEdit(row.id)">Editar</button>
+            <button mat-button type="button" color="warn" (click)="delete(row.id)">Eliminar</button> 
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>

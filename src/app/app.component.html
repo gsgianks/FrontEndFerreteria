@@ -1,0 +1,18 @@
+<div fxLayout="row wrap" fxLayoutAlign="center center" class="layout-wrapper">
+  <div fxFlex="100%" class="flex-wrapper">
+    <mot-nav-bar *ngIf="displayMenu"></mot-nav-bar>
+    <mat-sidenav-container>
+        <mat-sidenav-content>
+          <div fxLayout="row" fxLayoutAlign="stretch" class="h-100">
+            <main >
+              <router-outlet ></router-outlet>
+            </main>
+          </div>
+        </mat-sidenav-content>
+      </mat-sidenav-container>
+    </div>
+    <footer class="page-footer font-small">
+      <div class="footer-copyright text-center py-3 bottom">© 2020 Copyright: Giancarlos Gamboa
+      </div>
+    </footer>
+  </div>

@@ -1,0 +1,68 @@
+<button class="m-2" mat-raised-button color="primary" (click)="getAll()">Buscar</button> 
+<mat-form-field>
+    <mat-label>Filtro</mat-label>
+    <input matInput (keyup)="applyFilter($event)">
+  </mat-form-field>
+  
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+  
+      <!-- Nombre Column -->
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+        <td mat-cell *matCellDef="let row"> {{row.nombre}} </td>
+      </ng-container>
+  
+      <!-- Identificación Column -->
+      <ng-container matColumnDef="identificacion">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Cédula </th>
+        <td mat-cell *matCellDef="let row"> {{row.identificacion}} </td>
+      </ng-container>
+
+      <!-- Dirección Column -->
+      <ng-container matColumnDef="direccion">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Dirección </th>
+        <td mat-cell *matCellDef="let row" > {{row.direccion}} </td>
+      </ng-container>
+
+      <!-- Correo Column -->
+      <ng-container matColumnDef="correo_Electronico">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Correo </th>
+        <td mat-cell *matCellDef="let row" > {{row.correo_Electronico}} </td>
+      </ng-container>
+
+       <!-- Celular Column -->
+       <ng-container matColumnDef="celular">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Celular </th>
+        <td mat-cell *matCellDef="let row" > {{row.celular}} </td>
+      </ng-container>
+
+       <!-- Teléfono Column -->
+       <ng-container matColumnDef="telefono">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Teléfono </th>
+        <td mat-cell *matCellDef="let row" > {{row.telefono}} </td>
+      </ng-container>
+
+       <!-- Rol Column -->
+       <ng-container matColumnDef="rol">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Rol </th>
+        <td mat-cell *matCellDef="let row" > {{row.rol}} </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actionsColumn">
+        <th mat-header-cell *matHeaderCellDef>
+            <button class="m-2" mat-raised-button color="primary" (click)="goEdit(0)">Nuevo</button> 
+        </th>
+        <td mat-cell *matCellDef="let row"> 
+            <button mat-button type="button" color="primary" (click)="goEdit(row.id)">Editar</button>
+            <button mat-button type="button" color="warn" (click)="delete(row.id)">Eliminar</button> 
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>

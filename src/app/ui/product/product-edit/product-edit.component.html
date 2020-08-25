@@ -1,0 +1,140 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-12 pt-2">
+        <div class="row header">
+          <div class="col-12">
+            <h2 class="float-left">Detalle Producto</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <form [formGroup]="form" (ngSubmit)="submit()">
+              <div [hidden]="true">
+                <mat-form-field>
+                  <input matInput formControlName="id" />
+                </mat-form-field>
+              </div>
+        
+              <div>
+                <mat-form-field class="col-12">
+                  <input matInput placeholder="Nombre" formControlName="nombre" />
+                  <mat-error *ngIf="messages.nombre">
+                    {{ messages.nombre }}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div>
+                <mat-form-field class="col-12">
+                    <mat-label>Categoria</mat-label>
+                    <mat-select formControlName="id_Categoria">
+                      <mat-option>- Seleccionar Categoría -</mat-option>
+                      <mat-option *ngFor="let pm of categories; trackBy: trackByFn" [value]="pm.id">
+                        {{ pm.descripcion }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="messages.id_Categoria">
+                      {{ messages.id_Categoria }}
+                    </mat-error>
+                  </mat-form-field>
+              </div>
+
+              <div>
+                <mat-form-field class="col-12">
+                    <mat-label>Proveedor</mat-label>
+                    <mat-select formControlName="id_Proveedor">
+                      <mat-option>- Seleccionar Proveedor -</mat-option>
+                      <mat-option *ngFor="let pm of providers; trackBy: trackByFn" [value]="pm.id">
+                        {{ pm.nombre_Proveedor }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="messages.id_Proveedor">
+                      {{ messages.id_Proveedor }}
+                    </mat-error>
+                  </mat-form-field>
+              </div>
+        
+              <div>
+                <mat-form-field class="col-12">
+                  <input matInput type="number" placeholder="Precio Costo" formControlName="precio_Costo" />
+                  <mat-error *ngIf="messages.precio_Costo">
+                    {{ messages.precio_Costo}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field class="col-12">
+                  <input matInput type="number" placeholder="Utilidad" formControlName="utilidad" />
+                  <mat-error *ngIf="messages.utilidad">
+                    {{ messages.utilidad}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field class="col-12">
+                  <input matInput type="number" placeholder="Impuesto" formControlName="impuesto" />
+                  <mat-error *ngIf="messages.impuesto">
+                    {{ messages.impuesto}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field class="col-12">
+                    <input matInput type="number" placeholder="Descuento" formControlName="descuento" />
+                    <mat-error *ngIf="messages.descuento">
+                    {{ messages.descuento}}
+                    </mat-error>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field class="col-12">
+                    <input matInput type="number" placeholder="Precio Venta" formControlName="precio_Venta"/>
+                    <mat-error *ngIf="messages.precio_Venta">
+                    {{ messages.precio_Venta}}
+                    </mat-error>
+                </mat-form-field>
+              </div>
+              <div>
+                  <mat-form-field class="col-12">
+                      <input matInput type="number" placeholder="Stock" formControlName="stock" />
+                      <mat-error *ngIf="messages.stock">
+                      {{ messages.stock}}
+                      </mat-error>
+                  </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field class="col-12">
+                    <input matInput placeholder="Estado" formControlName="estado"/>
+                    <mat-error *ngIf="messages.estado">
+                    {{ messages.estado}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+              <div>
+                  <mat-form-field class="col-12">
+                      <input matInput placeholder="Codigo Barra" formControlName="codigo_Barra"/>
+                      <mat-error *ngIf="messages.codigo_Barra">
+                      {{ messages.codigo_Barra}}
+                      </mat-error>
+                  </mat-form-field>
+              </div>
+              
+              <div class="col-12">
+                <button mat-raised-button color="primary" type="submit">
+                  Guardar
+                </button>
+                &nbsp;
+                <button *ngIf="updating" mat-raised-button type="button" color="warn" (click)="delete(model.id)">Eliminar</button> 
+                &nbsp;
+                <button mat-raised-button type="button" color="primary" (click)="goToList()">Volver</button>
+                
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  

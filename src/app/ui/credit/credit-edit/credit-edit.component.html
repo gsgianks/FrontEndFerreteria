@@ -1,0 +1,82 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-12 pt-2">
+        <div class="row header">
+          <div class="col-12">
+            <h2 class="float-left">Crédito <span *ngIf="!!modelUser">{{modelUser.nombre}}</span></h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <form [formGroup]="form" (ngSubmit)="submit()">
+              <div [hidden]="true">
+                <mat-form-field>
+                  <input matInput formControlName="id" />
+                </mat-form-field>
+              </div>
+        
+              <div>
+                <mat-form-field class="col-12">
+                  <input matInput type="number" placeholder="Usuario" formControlName="id_Usuario" />
+                  <mat-error *ngIf="messages.id_Usuario">
+                    {{ messages.id_Usuario }}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+  
+              <div>
+                  <mat-form-field class="col-12">
+                      <input matInput type="number" placeholder="Producto" formControlName="id_Producto" />
+                      <mat-error *ngIf="messages.id_Producto">
+                      {{ messages.id_Producto}}
+                      </mat-error>
+                  </mat-form-field>
+              </div>
+              <div>
+                  <mat-form-field class="col-12">
+                      <input matInput placeholder="Descripción" formControlName="nombre_Producto" />
+                      <mat-error *ngIf="messages.nombre_Producto">
+                      {{ messages.nombre_Producto}}
+                      </mat-error>
+                  </mat-form-field>
+              </div>
+              <div>
+                  <mat-form-field class="col-12">
+                      <input type="number"  matInput placeholder="Precio" formControlName="precio_Venta_Producto"/>
+                      <mat-error *ngIf="messages.precio_Venta_Producto">
+                      {{ messages.precio_Venta_Producto}}
+                      </mat-error>
+                  </mat-form-field>
+              </div>
+              <div>
+                  <mat-form-field class="col-12">
+                      <input matInput type="number" placeholder="Cantidad" formControlName="cantidad" />
+                      <mat-error *ngIf="messages.cantidad">
+                      {{ messages.cantidad}}
+                      </mat-error>
+                  </mat-form-field>
+              </div>
+              <div class="col-12">
+                <button mat-raised-button color="primary" type="submit">
+                  Guardar
+                </button>
+                &nbsp;
+                <button *ngIf="updating" mat-raised-button type="button" color="warn" (click)="delete(model.id)">Eliminar</button> 
+                &nbsp;
+                <button mat-raised-button type="button" color="primary" (click)="goToList()">Volver</button>
+                
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 pt-2">
+          <mot-credit-table></mot-credit-table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  

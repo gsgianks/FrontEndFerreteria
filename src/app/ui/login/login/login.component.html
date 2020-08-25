@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+          <mat-card class="login-card">
+            <mat-card-content >
+                <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
+                  <div class="login-control-input row">
+                    <mat-icon class="col-1">email</mat-icon>
+                    <mat-form-field class="login-form-field col-11">
+                      <input matInput placeholder="Correo" aria-label="text" formControlName="correoElectronico">
+                      <mat-error *ngIf="loginForm.get('correoElectronico').hasError('required')">Requerido</mat-error>
+                      <mat-error *ngIf="loginForm.get('correoElectronico').hasError('cannotContainSpace')">No puede contener espacios</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="login-control-input row">
+                      <mat-icon class="col-1">vpn_key</mat-icon>
+                      <mat-form-field class="login-form-field col-11">
+                        <input matInput placeholder="Contraseña" aria-label="Password" type="password" formControlName="contrasena">
+                        <mat-error *ngIf="loginForm.get('contrasena').hasError('required')">Requerido</mat-error>
+                        <mat-error *ngIf="loginForm.get('contrasena').hasError('minlength')">Minimo 2 caracteres</mat-error>
+                        <mat-error *ngIf="loginForm.get('contrasena').hasError('maxlength')">Máximo 50 caracteres</mat-error>
+                        <mat-error *ngIf="loginForm.get('contrasena').hasError('cannotContainSpace')">No puede contener espacios</mat-error>
+                      </mat-form-field>
+                  </div>
+                  <div *ngIf="loginError">
+                    <p class="login-error">{{loginError}}</p>
+                  </div>
+                  <div class="mx-auto">
+                    <button class="float-right" mat-raised-button type="submit" color="primary" [disabled]="loginForm.invalid">Login</button>
+                   </div>
+                </form>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+</div>
+
+  

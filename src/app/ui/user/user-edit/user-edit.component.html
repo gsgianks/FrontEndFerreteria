@@ -1,0 +1,84 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 pt-2">
+      <div class="row header">
+        <div class="col-12">
+          <h2 class="float-left">Detalle Usuario</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <form [formGroup]="form" (ngSubmit)="submit()">
+            <div [hidden]="true">
+              <mat-form-field>
+                <input matInput formControlName="id" />
+              </mat-form-field>
+            </div>
+      
+            <div>
+              <mat-form-field class="col-12">
+                <input matInput placeholder="Nombre" formControlName="nombre" />
+                <mat-error *ngIf="messages.nombre">
+                  {{ messages.nombre }}
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field class="col-12">
+                    <input matInput placeholder="Correo Eléctronico" formControlName="correo_Electronico" />
+                    <mat-error *ngIf="messages.correo_Electronico">
+                    {{ messages.correo_Electronico}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="col-12">
+                    <input matInput placeholder="Cédula" formControlName="identificacion" />
+                    <mat-error *ngIf="messages.identificacion">
+                    {{ messages.identificacion}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="col-12">
+                    <textarea  matInput placeholder="Dirección" formControlName="direccion"></textarea>
+                    <mat-error *ngIf="messages.direccion">
+                    {{ messages.direccion}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="col-12">
+                    <input matInput placeholder="Teléfono" formControlName="telefono" />
+                    <mat-error *ngIf="messages.telefono">
+                    {{ messages.telefono}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="col-12">
+                    <input matInput placeholder="Celular" formControlName="celular"/>
+                    <mat-error *ngIf="messages.celular">
+                    {{ messages.celular}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-12">
+              <button mat-raised-button color="primary" type="submit">
+                Guardar
+              </button>
+              &nbsp;
+              <button *ngIf="updating" mat-raised-button type="button" color="warn" (click)="delete(model.id)">Eliminar</button> 
+              &nbsp;
+              <button mat-raised-button type="button" color="primary" (click)="goToList()">Volver</button>
+              
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

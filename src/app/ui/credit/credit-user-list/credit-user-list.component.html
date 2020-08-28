@@ -1,4 +1,4 @@
-<button class="m-2" mat-raised-button color="primary" (click)="getAll()">Buscar</button> 
+<button class="m-2" mat-raised-button color="primary" (click)="getAll()"><mat-icon>search</mat-icon></button> 
 <mat-form-field>
     <mat-label>Filtro</mat-label>
     <input matInput (keyup)="applyFilter($event)">
@@ -8,30 +8,31 @@
     <table mat-table [dataSource]="dataSource" matSort>
   
       <!-- Nombre Column -->
-      <ng-container matColumnDef="nombre">
+      <ng-container matColumnDef="nombre_Usuario">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </th>
-        <td mat-cell *matCellDef="let row"> {{row.nombre}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.nombre_Usuario}} </td>
       </ng-container>
   
       <!-- Identificación Column -->
-      <ng-container matColumnDef="monto">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Monto </th>
-        <td mat-cell *matCellDef="let row"> {{row.monto}} </td>
+      <ng-container matColumnDef="saldo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Saldo </th>
+        <td mat-cell *matCellDef="let row"> {{row.saldo | number:'1.1-2'}} </td>
       </ng-container>
 
       <!-- Correo Column -->
-      <ng-container matColumnDef="estado">
+      <ng-container matColumnDef="descripcion_Estado">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
-        <td mat-cell *matCellDef="let row" > {{row.estado}} </td>
+        <td mat-cell *matCellDef="let row" > {{row.descripcion_Estado}} </td>
       </ng-container>
 
       <!-- Actions Column -->
       <ng-container matColumnDef="actionsColumn">
-        <th mat-header-cell *matHeaderCellDef>
-            <button class="m-2" mat-raised-button color="primary" (click)="goEdit(0)">Nuevo</button> 
+        <th mat-header-cell *matHeaderCellDef> Acciones
+            <!-- <button mat-raised-button color="primary" (click)="goEdit(0)"><mat-icon>playlist_add</mat-icon>Agregar</button>  -->
         </th>
         <td mat-cell *matCellDef="let row"> 
-            <button mat-button type="button" color="primary" (click)="goEdit(row.id)">Editar</button> 
+            <button mat-button type="button" color="primary" (click)="goEdit(row.id_Usuario)"><mat-icon>edit</mat-icon></button> 
+            <button mat-button type="button" color="primary" (click)="goPay(row.id_Usuario)"><mat-icon>payment</mat-icon></button> 
         </td>
       </ng-container>
 

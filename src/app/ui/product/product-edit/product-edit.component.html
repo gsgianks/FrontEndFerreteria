@@ -120,14 +120,9 @@
               </div>
               
               <div class="col-12">
-                <button mat-raised-button color="primary" type="submit">
-                  Guardar
-                </button>
-                &nbsp;
-                <button *ngIf="updating" mat-raised-button type="button" color="warn" (click)="delete(model.id)">Eliminar</button> 
-                &nbsp;
-                <button mat-raised-button type="button" color="primary" (click)="goToList()">Volver</button>
-                
+                <button mat-raised-button type="button" color="primary" (click)="goToList()"><mat-icon>arrow_back_ios</mat-icon>Volver</button>
+                <button mat-raised-button class="ml-3" color="primary" type="submit"><mat-icon>save</mat-icon>Guardar</button>
+                <button *ngIf="updating" class="ml-3" mat-raised-button type="button" color="warn" (click)="delete(model.id)"><mat-icon>delete</mat-icon>Eliminar</button> 
               </div>
             </form>
           </div>

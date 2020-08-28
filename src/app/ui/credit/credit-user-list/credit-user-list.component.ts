@@ -4,6 +4,7 @@ import { User } from 'src/app/domain/User';
 import { BaseService } from 'src/app/services/base.service';
 import { Router } from '@angular/router';
 import * as alertify from 'alertifyjs';
+import { MethodsService } from 'src/app/common/MethodsService';
 
 @Component({
   selector: 'mot-credit-user-list',
@@ -13,9 +14,9 @@ import * as alertify from 'alertifyjs';
 export class CreditUserListComponent implements OnInit {
 
   displayedColumns: string[] = [
-    'nombre',
-    'monto',
-    'estado',
+    'nombre_Usuario',
+    'saldo',
+    'descripcion_Estado',
     'actionsColumn'
   ];
   dataSource: MatTableDataSource<User>;
@@ -28,7 +29,6 @@ export class CreditUserListComponent implements OnInit {
     private service: BaseService<User>,
     private router: Router
   ) {
-    this.service.Api = 'Usuario';
     this.getAll();
     this.dataSource = new MatTableDataSource();
    }
@@ -49,7 +49,7 @@ export class CreditUserListComponent implements OnInit {
   }
 
   getAll(): void {
-    this.service.getAll()
+    this.service.getAll(MethodsService.Credit + '/CreditoUsuario')
     .subscribe(
       response => {
         this.dataSource.data = response.items;
@@ -60,6 +60,10 @@ export class CreditUserListComponent implements OnInit {
   goEdit(id: number) {
     this.router.navigate(['/credit', 'edit', id, 'user']);
 
+  }
+
+  goPay(id: number) {
+    
   }
 
   showError(error: any): void {

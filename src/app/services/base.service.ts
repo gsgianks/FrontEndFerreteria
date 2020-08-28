@@ -12,36 +12,34 @@ import { ResponseModel } from '../common/ResponseModel';
 
 export class BaseService<T> {
 
-    Api: string;
-
     constructor(private http: HttpClient) {
 
     }
 
-    getAll(): Observable<ResponseModel<T>> {
-        return this.http.get<ResponseModel<T>>(`${environment.urlService}/${this.Api}`);
+    getAll(method: string): Observable<ResponseModel<T>> {
+        return this.http.get<ResponseModel<T>>(`${environment.urlService}/${method}`);
     }
 
-    delete(id: number): Observable<ResultBaseModel> {
-        return this.http.delete(`${environment.urlService}/${this.Api}/${id}`).
+    delete(method: string, id: number): Observable<ResultBaseModel> {
+        return this.http.delete(`${environment.urlService}/${method}/${id}`).
         pipe(
             map((response: ResultBaseModel) => response)
         );
     }
 
-    getById(id: number): Observable<ResponseModel<T>> {
-        return this.http.get<ResponseModel<T>>(`${environment.urlService}/${this.Api}/${id}`);
+    getById(method: string, id: number): Observable<ResponseModel<T>> {
+        return this.http.get<ResponseModel<T>>(`${environment.urlService}/${method}/${id}`);
     }
 
-    update(data: T): Observable<ResultBaseModel> {
-        return this.http.put(`${environment.urlService}/${this.Api}`, data)
+    update(method: string, data: T): Observable<ResultBaseModel> {
+        return this.http.put(`${environment.urlService}/${method}`, data)
             .pipe(
             map((response: ResultBaseModel) => response)
         );
     }
 
-    insert(data: T): Observable<ResponseModel<T>> {
-        return this.http.post(`${environment.urlService}/${this.Api}`, data)
+    insert(method: string, data: T): Observable<ResponseModel<T>> {
+        return this.http.post(`${environment.urlService}/${method}`, data)
         .pipe(
           map((response: ResponseModel<T>) => response)
         );

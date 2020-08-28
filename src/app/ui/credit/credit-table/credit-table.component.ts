@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import * as alertify from 'alertifyjs';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { Credit } from 'src/app/domain/Credit';
 import { BaseService } from 'src/app/services/base.service';
 import { Router } from '@angular/router';
+import { MethodsService } from 'src/app/common/MethodsService';
 
 @Component({
   selector: 'mot-credit-table',
@@ -14,16 +15,18 @@ import { Router } from '@angular/router';
 export class CreditTableComponent implements OnInit {
 
   displayedColumns: string[] = [
-    'id_Usuario',
+    // 'id_Usuario',
     'nombre_Producto',
     'precio_Venta_Producto',
     'cantidad',
+    'precio_Total',
     'fecha_Creacion',
-    'estado',
+    'descripcion_Estado',
     'actionsColumn'
   ];
   dataSource: MatTableDataSource<Credit>;
   rowData: Credit[] = [];
+  @Input() idUsuario: number;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -33,8 +36,6 @@ export class CreditTableComponent implements OnInit {
     private router: Router,
     private confirmationDialogService: ConfirmationDialogService
   ) {
-    this.service.Api = 'Credito';
-    this.getAll();
     this.dataSource = new MatTableDataSource();
    }
 
@@ -42,6 +43,7 @@ export class CreditTableComponent implements OnInit {
 
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.getAll();
   }
 
   applyFilter(event: Event) {
@@ -54,10 +56,12 @@ export class CreditTableComponent implements OnInit {
   }
 
   getAll(): void {
-    this.service.getAll()
-    .subscribe(
-      response => {
-        this.dataSource.data = response.items;
+    this.service.getById(MethodsService.Credit + '/PorUsuario', this.idUsuario).subscribe(r => {
+        if (r.codigo === 0) {
+          this.dataSource.data = r.items;
+        } else {
+          alertify.error(r.descripcion);
+        }
       }
     );
   }
@@ -77,7 +81,7 @@ export class CreditTableComponent implements OnInit {
     this.confirmationDialogService.confirm('Confirmación', '¿Desea eliminar el registro?')
     .then((confirmed) => {
       if (confirmed) {
-        this.service.delete(id)
+        this.service.delete(MethodsService.Credit, id)
           .subscribe(response => {
             if (response.codigo === 0) {
               this.getAll();
@@ -90,6 +94,10 @@ export class CreditTableComponent implements OnInit {
     })
     .catch(() => {});
 
+  }
+
+  public calculateTotal() {
+    return this.dataSource.data.reduce((accum, curr) => accum + (curr.precio_Total || 0), 0);
   }
 
 }

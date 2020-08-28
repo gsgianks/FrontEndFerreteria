@@ -1,14 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { Credit } from 'src/app/domain/Credit';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BaseService } from 'src/app/services/base.service';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
 import { FormUtils } from '../../shared/formUtils';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, startWith, map } from 'rxjs/operators';
 import * as alertify from 'alertifyjs';
 import { User } from 'src/app/domain/User';
+import { Product } from 'src/app/domain/Product';
+import { MethodsService } from 'src/app/common/MethodsService';
+import { CreditTableComponent } from '../credit-table/credit-table.component';
 
 const FIELD_REQUIRED = 'Campo Requerido.';
 
@@ -19,10 +22,16 @@ const FIELD_REQUIRED = 'Campo Requerido.';
 })
 export class CreditEditComponent implements OnInit {
 
+  @ViewChild(CreditTableComponent, {static: false}) child:CreditTableComponent;
+
   form: FormGroup;
   model: Credit = null;
   updating = false;
+  idUser: number = null;
   modelUser: User = null;
+  productControl = new FormControl();
+  products: Product[] = null;
+  filteredProducts: Observable<Product[]>;
 
   private ngUnsubscribe: Subject<boolean> = new Subject();
 
@@ -42,6 +51,9 @@ export class CreditEditComponent implements OnInit {
     },
     cantidad: {
       required: FIELD_REQUIRED
+    },
+    precio_Total: {
+      required: FIELD_REQUIRED
     }
   };
 
@@ -50,10 +62,10 @@ export class CreditEditComponent implements OnInit {
     private route: ActivatedRoute,
     private service: BaseService<Credit>,
     private serviceUser: BaseService<User>,
+    private serviceProduct: BaseService<Product>,
     private fb: FormBuilder,
     private confirmationDialogService: ConfirmationDialogService
   ) { 
-    this.service.Api = 'Credito';
   }
 
   createForm(): void {
@@ -63,7 +75,8 @@ export class CreditEditComponent implements OnInit {
       id_Producto: ['', [Validators.required]],
       nombre_Producto: ['', [Validators.required]],
       precio_Venta_Producto: ['', [Validators.required]],
-      cantidad: ['', [Validators.required]]
+      cantidad: ['', [Validators.required]],
+      precio_Total: ['', [Validators.required]]
     });
 
     const fieldsToWatch = [
@@ -71,10 +84,12 @@ export class CreditEditComponent implements OnInit {
       'id_Producto',
       'nombre_Producto',
       'precio_Venta_Producto',
-      'cantidad'
+      'cantidad',
+      'precio_Total'
     ];
     if (this.model) {
       FormUtils.toFormGroup(this.form, this.model);
+      this.form.controls.id_Usuario.setValue(this.idUser);
     }
     fieldsToWatch.forEach(x => this.addFieldWatch(this.form.get(x), this.messages, this.formMessages, x));
   }
@@ -96,33 +111,34 @@ export class CreditEditComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-
-    this.createForm();
+  getAllProduct(){
+    this.serviceProduct.getAll(MethodsService.Product).subscribe(res => {
+      this.products = res.items
+      this.filteredProducts = this.productControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+    });
     
-    const id = +this.route.snapshot.paramMap.get('id');
+  }
+
+  ngOnInit() {
+    
+    this.idUser = +this.route.snapshot.paramMap.get('id');
     var origen = this.route.snapshot.paramMap.get('origen')
-    console.log(origen);
-    if(origen.toString() == 'id'){
-      if (id) {
-        this.service.getById(id).subscribe( res => {
-          if (res.codigo === 0) {
-            this.model = res.items[0];
-            FormUtils.toFormGroup(this.form, this.model);
-          } else {
-            alertify.error(res.descripcion);
-          }
-        });
-        this.updating = true;
-      } else {
-        this.model = {
-          id: 0
-        } as Credit;
-        FormUtils.toFormGroup(this.form, this.model);
-      }
-    }else if(origen.toString() == 'user'){
-      this.serviceUser.Api = 'Usuario';
-      this.serviceUser.getById(id).subscribe(res => { this.modelUser = res.items[0] });
+
+    if(origen === 'user'){
+      this.serviceUser.getById(MethodsService.User, this.idUser).subscribe(res => { 
+        if(res.codigo == 0){
+          this.modelUser = res.items[0];
+        }else{
+          alertify.error(res.descripcion);
+        }
+      });
+
+      this.model = { id: 0 } as Credit;
+      this.createForm();
+      this.getAllProduct();
     }
   }
 
@@ -144,30 +160,17 @@ export class CreditEditComponent implements OnInit {
   }
 
   saveModel(): void {
-    if (this.model.id) {
-      this.service
-        .update(this.model)
-        .subscribe(res => {
-          if (res.codigo === 0) {
-            alertify.success(res.descripcion);
-          } else {
-            alertify.error(res.descripcion);
-          }
-        });
-    } else {
-      this.service
-        .insert(this.model)
-        .subscribe(res => {
-          if (res.codigo === 0) {
-            this.form.controls.id.setValue(res.items[0].id);
-            this.model = res.items[0];
-            this.updating = true;
-            alertify.success(res.descripcion);
-          } else {
-            alertify.error(res.descripcion);
-          }
-        });
-    }
+    this.service.insert(MethodsService.Credit, this.model)
+      .subscribe(res => {
+        if (res.codigo === 0) {
+          this.createForm();
+          this.productControl.setValue('');
+          alertify.success(res.descripcion);
+          this.child.getAll();
+        } else {
+          alertify.error(res.descripcion);
+        }
+      });
   }
 
   goToList(): void {
@@ -179,7 +182,7 @@ export class CreditEditComponent implements OnInit {
     this.confirmationDialogService.confirm('Confirmación', '¿Desea eliminar el registro?')
     .then((confirmed) => {
       if (confirmed) {
-        this.service.delete(id)
+        this.service.delete(MethodsService.Credit, id)
           .subscribe(response => {
             if (response.codigo === 0) {
               alertify.success(response.descripcion);
@@ -191,6 +194,33 @@ export class CreditEditComponent implements OnInit {
       }
     })
     .catch(() => {});
+  }
+
+  private _filter(value: String): Product[] {
+    const filterValue = value.toLowerCase(); 
+    return this.products.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0).map((a) => {return a;});
+  }
+
+  changeProduct(e){
+    const product = this.products.find(p => p.nombre === e);
+
+    if(product){
+      this.form.controls.id_Producto.setValue(product.id);
+      this.form.controls.precio_Venta_Producto.setValue(product.precio_Venta);
+      this.form.controls.cantidad.setValue(1);
+      this.form.controls.nombre_Producto.setValue(product.nombre);
+      this.form.controls.precio_Total.setValue(product.precio_Venta);
+    }else{
+      this.form.controls.id_Producto.setValue(null);
+      this.form.controls.precio_Venta_Producto.setValue(null);
+      this.form.controls.cantidad.setValue(null);
+      this.form.controls.nombre_Producto.setValue(null);
+      this.form.controls.precio_Total.setValue(null);
+    }
+  }
+
+  changeTotalPrice(){
+    this.form.controls.precio_Total.setValue(this.form.value['cantidad']*this.form.value['precio_Venta_Producto']);
   }
 
 }

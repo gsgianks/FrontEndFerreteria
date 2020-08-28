@@ -11,6 +11,7 @@ import * as alertify from 'alertifyjs';
 import { BaseService } from 'src/app/services/base.service';
 import { Category } from 'src/app/domain/Category';
 import { Provider } from 'src/app/domain/Provider';
+import { MethodsService } from 'src/app/common/MethodsService';
 
 const FIELD_REQUIRED = 'Campo Requerido.';
 const FIELDMA_MAXLEN_2 = 'Minimo 2 digitos.';
@@ -72,15 +73,13 @@ export class ProductEditComponent implements OnInit {
    }
 
   getCategories() {
-    this.serviceCategory.Api = 'Categoria';
-    this.serviceCategory.getAll().subscribe(res => {
+    this.serviceCategory.getAll(MethodsService.Category).subscribe(res => {
       this.categories = res.items;
     });
   }
 
   getProviders() {
-    this.serviceProvider.Api = 'Proveedor';
-    this.serviceProvider.getAll().subscribe(res => {
+    this.serviceProvider.getAll(MethodsService.Provider).subscribe(res => {
       this.providers = res.items;
     });
   }

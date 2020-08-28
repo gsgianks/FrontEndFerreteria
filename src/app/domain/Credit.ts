@@ -20,4 +20,8 @@ export class Credit {
     // tslint:disable-next-line: variable-name
     usuario_Modificacion: string;
     estado: string;
+    // tslint:disable-next-line: variable-name
+    descripcion_Estado: string;
+    // tslint:disable-next-line: variable-name
+    precio_Total: number;
 }

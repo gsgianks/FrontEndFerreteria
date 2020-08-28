@@ -7,6 +7,7 @@
                 <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
                   <div class="login-control-input row">
                     <mat-icon class="col-1">email</mat-icon>
+                    <mat-icon class="col-1">3d_rotation</mat-icon>
                     <mat-form-field class="login-form-field col-11">
                       <input matInput placeholder="Correo" aria-label="text" formControlName="correoElectronico">
                       <mat-error *ngIf="loginForm.get('correoElectronico').hasError('required')">Requerido</mat-error>

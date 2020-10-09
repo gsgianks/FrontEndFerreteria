@@ -1,0 +1,12 @@
+
+<mat-card *ngIf="!!payment">
+    <mat-card-header>
+      <mat-card-title>Datos del Pago</mat-card-title>
+      <mat-card-subtitle>Fecha: {{payment.fecha_Creacion | date: 'yyyy-MM-dd hh:mm:ss'}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>      
+      <h6 class="d-inline p-4"><b>Monto: </b>₡{{payment.monto | number:'1.1-2'}}</h6> 
+      <h6 class="d-inline p-2"><b>Pago: </b>: ₡{{payment.abono | number:'1.1-2'}}</h6>
+      <h6 class="d-inline p-2"><b>Saldo: </b>: ₡{{payment.saldo | number:'1.1-2'}}</h6>
+    </mat-card-content>
+</mat-card>

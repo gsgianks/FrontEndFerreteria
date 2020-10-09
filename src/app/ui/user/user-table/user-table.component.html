@@ -1,68 +1,68 @@
 <button class="m-2" mat-raised-button color="primary" (click)="getAll()"><mat-icon>search</mat-icon>Buscar</button> 
-<mat-form-field>
-    <mat-label>Filtro</mat-label>
-    <input matInput (keyup)="applyFilter($event)">
-  </mat-form-field>
+<mat-form-field class="col-md-4 col-sm-12">
+  <mat-label>Filtro</mat-label>
+  <input matInput (keyup)="applyFilter($event)">
+</mat-form-field>
   
-  <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort>
-  
-      <!-- Nombre Column -->
-      <ng-container matColumnDef="nombre">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
-        <td mat-cell *matCellDef="let row"> {{row.nombre}} </td>
-      </ng-container>
-  
-      <!-- Identificación Column -->
-      <ng-container matColumnDef="identificacion">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Cédula </th>
-        <td mat-cell *matCellDef="let row"> {{row.identificacion}} </td>
-      </ng-container>
+<div class="mat-elevation-z8">
+  <mat-table mat-table [dataSource]="dataSource" matSort>
 
-      <!-- Dirección Column -->
-      <ng-container matColumnDef="direccion">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Dirección </th>
-        <td mat-cell *matCellDef="let row" > {{row.direccion}} </td>
-      </ng-container>
+    <!-- Nombre Column -->
+    <ng-container matColumnDef="nombre">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="Nombre"> {{row.nombre}} </mat-cell>
+    </ng-container>
 
-      <!-- Correo Column -->
-      <ng-container matColumnDef="correo_Electronico">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Correo </th>
-        <td mat-cell *matCellDef="let row" > {{row.correo_Electronico}} </td>
-      </ng-container>
+    <!-- Identificación Column -->
+    <ng-container matColumnDef="identificacion">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Cédula </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="Cédula"> {{row.identificacion}} </mat-cell>
+    </ng-container>
 
-       <!-- Celular Column -->
-       <ng-container matColumnDef="celular">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Celular </th>
-        <td mat-cell *matCellDef="let row" > {{row.celular}} </td>
-      </ng-container>
+    <!-- Dirección Column -->
+    <ng-container matColumnDef="direccion">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Dirección </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="Dirección"> {{row.direccion}} </mat-cell>
+    </ng-container>
 
-       <!-- Teléfono Column -->
-       <ng-container matColumnDef="telefono">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Teléfono </th>
-        <td mat-cell *matCellDef="let row" > {{row.telefono}} </td>
-      </ng-container>
+    <!-- Correo Column -->
+    <ng-container matColumnDef="correo_Electronico">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Correo </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="Correo"> {{row.correo_Electronico}} </mat-cell>
+    </ng-container>
 
-       <!-- Rol Column -->
-       <ng-container matColumnDef="rol">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Rol </th>
-        <td mat-cell *matCellDef="let row" > {{row.rol}} </td>
-      </ng-container>
+      <!-- Celular Column -->
+      <ng-container matColumnDef="celular">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Celular </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="Celular"> {{row.celular}} </mat-cell>
+    </ng-container>
 
-      <!-- Actions Column -->
-      <ng-container matColumnDef="actionsColumn">
-        <th mat-header-cell *matHeaderCellDef>
-            <button class="m-2" mat-raised-button color="primary" (click)="goEdit(0)"><mat-icon>add</mat-icon>Nuevo</button> 
-        </th>
-        <td mat-cell *matCellDef="let row"> 
-            <button mat-button type="button" color="primary" (click)="goEdit(row.id)"><mat-icon>edit</mat-icon>Editar</button>
-            <button mat-button type="button" color="warn" (click)="delete(row.id)"><mat-icon>delete</mat-icon>Eliminar</button> 
-        </td>
-      </ng-container>
+      <!-- Teléfono Column -->
+      <ng-container matColumnDef="telefono">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Teléfono </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="Teléfono"> {{row.telefono}} </mat-cell>
+    </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-  </div>
+      <!-- Rol Column -->
+      <ng-container matColumnDef="rol">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Rol </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="Rol"> {{row.rol}} </mat-cell>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actionsColumn">
+      <mat-header-cell *matHeaderCellDef>
+          <button class="m-2" mat-raised-button color="primary" (click)="goEdit(0)"><mat-icon>add</mat-icon>Nuevo</button> 
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row"> 
+          <button mat-button type="button" color="primary" (click)="goEdit(row.id)"><mat-icon>edit</mat-icon>Editar</button>
+          <button mat-button type="button" color="warn" (click)="delete(row.id)"><mat-icon>delete</mat-icon>Eliminar</button> 
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>

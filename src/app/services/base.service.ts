@@ -38,10 +38,10 @@ export class BaseService<T> {
         );
     }
 
-    insert(method: string, data: T): Observable<ResponseModel<T>> {
+    post(method: string, data: T): Observable<ResponseModel<T>> {
         return this.http.post(`${environment.urlService}/${method}`, data)
         .pipe(
           map((response: ResponseModel<T>) => response)
         );
-      }
+    }
 }

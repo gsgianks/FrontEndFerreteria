@@ -5,7 +5,7 @@ import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { Credit } from 'src/app/domain/Credit';
 import { BaseService } from 'src/app/services/base.service';
 import { Router } from '@angular/router';
-import { MethodsService } from 'src/app/common/MethodsService';
+import { Constants } from 'src/app/common/Constants';
 
 @Component({
   selector: 'mot-credit-table',
@@ -17,16 +17,18 @@ export class CreditTableComponent implements OnInit {
   displayedColumns: string[] = [
     // 'id_Usuario',
     'nombre_Producto',
+    'fecha_Creacion',
     'precio_Venta_Producto',
     'cantidad',
     'precio_Total',
-    'fecha_Creacion',
     'descripcion_Estado',
     'actionsColumn'
   ];
   dataSource: MatTableDataSource<Credit>;
   rowData: Credit[] = [];
   @Input() idUsuario: number;
+  @Input() estado: string;
+  @Input() idPago: number;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -56,7 +58,8 @@ export class CreditTableComponent implements OnInit {
   }
 
   getAll(): void {
-    this.service.getById(MethodsService.Credit + '/PorUsuario', this.idUsuario).subscribe(r => {
+    const model = { id_Usuario: this.idUsuario, estado: this.estado, id_Pago: this.idPago } as Credit;
+    this.service.post(Constants.Credit + '/ListaCreditos', model).subscribe(r => {
         if (r.codigo === 0) {
           this.dataSource.data = r.items;
         } else {
@@ -66,9 +69,12 @@ export class CreditTableComponent implements OnInit {
     );
   }
 
-  goEdit(id: number) {
-    this.router.navigate(['/credit', 'edit', id]);
+  setIdPago(id: number): void {
+    this.idPago = id;
+  }
 
+  goPay(idUser: number, idPartialPay: number) {
+    this.router.navigate(['/creditpayment', 'his', idUser, idPartialPay, 'his']);
   }
 
   showError(error: any): void {
@@ -81,7 +87,7 @@ export class CreditTableComponent implements OnInit {
     this.confirmationDialogService.confirm('Confirmación', '¿Desea eliminar el registro?')
     .then((confirmed) => {
       if (confirmed) {
-        this.service.delete(MethodsService.Credit, id)
+        this.service.delete(Constants.Credit, id)
           .subscribe(response => {
             if (response.codigo === 0) {
               this.getAll();

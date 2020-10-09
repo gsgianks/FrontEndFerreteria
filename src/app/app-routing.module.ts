@@ -26,6 +26,10 @@ const routes: Routes = [
     loadChildren: './ui/credit/credit.module#CreditModule'
   },
   {
+    path: 'creditpayment',
+    loadChildren: './ui/credit-payment/credit-payment.module#CreditPaymentModule'
+  },
+  {
     path: 'login',
     component: LoginComponent
   },

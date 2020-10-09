@@ -4,7 +4,8 @@ import { User } from 'src/app/domain/User';
 import { BaseService } from 'src/app/services/base.service';
 import { Router } from '@angular/router';
 import * as alertify from 'alertifyjs';
-import { MethodsService } from 'src/app/common/MethodsService';
+import { Constants } from 'src/app/common/Constants';
+import { Credit } from 'src/app/domain/Credit';
 
 @Component({
   selector: 'mot-credit-user-list',
@@ -19,14 +20,14 @@ export class CreditUserListComponent implements OnInit {
     'descripcion_Estado',
     'actionsColumn'
   ];
-  dataSource: MatTableDataSource<User>;
-  rowData: User[] = [];
+  dataSource: MatTableDataSource<Credit>;
+  rowData: Credit[] = [];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(
-    private service: BaseService<User>,
+    private service: BaseService<Credit>,
     private router: Router
   ) {
     this.getAll();
@@ -49,7 +50,7 @@ export class CreditUserListComponent implements OnInit {
   }
 
   getAll(): void {
-    this.service.getAll(MethodsService.Credit + '/CreditoUsuario')
+    this.service.getAll(Constants.Credit + '/CreditoUsuario')
     .subscribe(
       response => {
         this.dataSource.data = response.items;
@@ -63,7 +64,7 @@ export class CreditUserListComponent implements OnInit {
   }
 
   goPay(id: number) {
-    
+    this.router.navigate(['/creditpayment', 'edit', id, 0, 'pay']);
   }
 
   showError(error: any): void {

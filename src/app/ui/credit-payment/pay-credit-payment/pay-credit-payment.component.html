@@ -1,0 +1,59 @@
+<div class="container-fluid p-3">
+    <!-- <div class="row header">
+      <div class="col-12">
+        <h3 class="float-left">Pago Crédito <span *ngIf="!!modelCredit">{{modelCredit.nombre_Usuario}}</span></h3>
+      </div>
+    </div> -->
+      <div class="row">
+        
+        <div class="col-md-4 col-sm-12 pt-2">
+          <br />
+          <br />
+          <mat-card>
+          <form [formGroup]="form" (ngSubmit)="submit()">
+            <div [hidden]="true">
+              <mat-form-field>
+                <input matInput formControlName="id" />
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <div class="col-md-12 col-sm-12">
+                <div [hidden]="true">
+                    <input matInput type="number" placeholder="Usuario" formControlName="id_Usuario" />
+                </div>
+                <div>
+                  <mat-form-field class="col-12">
+                      <input type="number"  matInput placeholder="Monto"  formControlName="monto" [readonly]="true"/>
+                  </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field class="col-12">
+                        <input type="number"  matInput placeholder="Abono" (ngModelChange)="changePay()" formControlName="abono"/>
+                        <mat-error *ngIf="messages.abono">
+                        {{ messages.abono}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field class="col-12">
+                        <input matInput type="number" placeholder="Saldo" formControlName="saldo" [readonly]="true"/>
+                    </mat-form-field>
+                </div>
+              </div>
+              <div class="col-12">
+                <button mat-raised-button type="button" color="primary" (click)="goToList()"><mat-icon>arrow_back_ios</mat-icon>Volver</button>   
+                <button mat-raised-button class="ml-3" color="primary" type="submit"><mat-icon>save</mat-icon>Guardar</button>                   
+              </div>
+            </div>
+          </form>
+        </mat-card>
+        </div>
+        <div class="col-md-8 col-sm-12">
+          <mot-credit-table *ngIf="!!modelCredit" [estado]="estado" [idUsuario]="modelCredit.id_Usuario"></mot-credit-table>
+        </div>
+    </div>
+  </div>
+  
+    
+    
+    

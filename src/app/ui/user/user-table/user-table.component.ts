@@ -1,7 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import { User } from 'src/app/domain/User';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
@@ -26,7 +24,6 @@ export class UserTableComponent implements OnInit {
     'actionsColumn'
   ];
   dataSource: MatTableDataSource<User>;
-  rowData: User[] = [];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -40,10 +37,15 @@ export class UserTableComponent implements OnInit {
     this.dataSource = new MatTableDataSource();
    }
 
-  ngOnInit() {
-
+  // tslint:disable-next-line: use-lifecycle-interface
+  ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+  ngOnInit() {
+
+    // this.dataSource.paginator = this.paginator;
+    // this.dataSource.sort = this.sort;
   }
 
   applyFilter(event: Event) {

@@ -10,7 +10,7 @@ import { takeUntil, startWith, map } from 'rxjs/operators';
 import * as alertify from 'alertifyjs';
 import { User } from 'src/app/domain/User';
 import { Product } from 'src/app/domain/Product';
-import { MethodsService } from 'src/app/common/MethodsService';
+import { Constants } from 'src/app/common/Constants';
 import { CreditTableComponent } from '../credit-table/credit-table.component';
 
 const FIELD_REQUIRED = 'Campo Requerido.';
@@ -31,6 +31,7 @@ export class CreditEditComponent implements OnInit {
   modelUser: User = null;
   productControl = new FormControl();
   products: Product[] = null;
+  estado = Constants.Pendiente; // Estado para cargar los créditos
   filteredProducts: Observable<Product[]>;
 
   private ngUnsubscribe: Subject<boolean> = new Subject();
@@ -112,7 +113,7 @@ export class CreditEditComponent implements OnInit {
   }
 
   getAllProduct(){
-    this.serviceProduct.getAll(MethodsService.Product).subscribe(res => {
+    this.serviceProduct.getAll(Constants.Product).subscribe(res => {
       this.products = res.items
       this.filteredProducts = this.productControl.valueChanges.pipe(
         startWith(''),
@@ -128,7 +129,7 @@ export class CreditEditComponent implements OnInit {
     var origen = this.route.snapshot.paramMap.get('origen')
 
     if(origen === 'user'){
-      this.serviceUser.getById(MethodsService.User, this.idUser).subscribe(res => { 
+      this.serviceUser.getById(Constants.User, this.idUser).subscribe(res => { 
         if(res.codigo == 0){
           this.modelUser = res.items[0];
         }else{
@@ -160,7 +161,7 @@ export class CreditEditComponent implements OnInit {
   }
 
   saveModel(): void {
-    this.service.insert(MethodsService.Credit, this.model)
+    this.service.post(Constants.Credit, this.model)
       .subscribe(res => {
         if (res.codigo === 0) {
           this.createForm();
@@ -182,7 +183,7 @@ export class CreditEditComponent implements OnInit {
     this.confirmationDialogService.confirm('Confirmación', '¿Desea eliminar el registro?')
     .then((confirmed) => {
       if (confirmed) {
-        this.service.delete(MethodsService.Credit, id)
+        this.service.delete(Constants.Credit, id)
           .subscribe(response => {
             if (response.codigo === 0) {
               alertify.success(response.descripcion);

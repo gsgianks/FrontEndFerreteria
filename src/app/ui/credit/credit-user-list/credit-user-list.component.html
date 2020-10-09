@@ -1,44 +1,42 @@
-<button class="m-2" mat-raised-button color="primary" (click)="getAll()"><mat-icon>search</mat-icon></button> 
+<button class="m-2" mat-raised-button color="primary" (click)="getAll()"><mat-icon>search</mat-icon>Buscar</button> 
 <mat-form-field>
     <mat-label>Filtro</mat-label>
     <input matInput (keyup)="applyFilter($event)">
   </mat-form-field>
   
   <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort>
+    <mat-table mat-table [dataSource]="dataSource" matSort>
   
       <!-- Nombre Column -->
       <ng-container matColumnDef="nombre_Usuario">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </th>
-        <td mat-cell *matCellDef="let row"> {{row.nombre_Usuario}} </td>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="Usuario"> {{row.nombre_Usuario}} </mat-cell>
       </ng-container>
   
-      <!-- Identificación Column -->
+      <!-- Saldo Column -->
       <ng-container matColumnDef="saldo">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Saldo </th>
-        <td mat-cell *matCellDef="let row"> {{row.saldo | number:'1.1-2'}} </td>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Saldo </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="Saldo"> {{row.saldo | number:'1.1-2'}} </mat-cell>
       </ng-container>
 
-      <!-- Correo Column -->
+      <!-- Esatdp Column -->
       <ng-container matColumnDef="descripcion_Estado">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
-        <td mat-cell *matCellDef="let row" > {{row.descripcion_Estado}} </td>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="Estado"> {{row.descripcion_Estado}} </mat-cell>
       </ng-container>
 
       <!-- Actions Column -->
       <ng-container matColumnDef="actionsColumn">
-        <th mat-header-cell *matHeaderCellDef> Acciones
-            <!-- <button mat-raised-button color="primary" (click)="goEdit(0)"><mat-icon>playlist_add</mat-icon>Agregar</button>  -->
-        </th>
-        <td mat-cell *matCellDef="let row"> 
+        <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+        <mat-cell *matCellDef="let row"> 
             <button mat-button type="button" color="primary" (click)="goEdit(row.id_Usuario)"><mat-icon>edit</mat-icon></button> 
             <button mat-button type="button" color="primary" (click)="goPay(row.id_Usuario)"><mat-icon>payment</mat-icon></button> 
-        </td>
+        </mat-cell>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
   
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
   </div>

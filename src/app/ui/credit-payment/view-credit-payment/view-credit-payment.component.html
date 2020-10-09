@@ -1,0 +1,11 @@
+<div class="container-fluid p-3">
+    <div class="row header">
+        <div class="col-12">
+          <h3 class="float-left">Crédito Alexander</h3>
+        </div>
+      </div>
+    <mat-tab-group [selectedIndex]="selectedTab">
+        <mat-tab label="Pago" ><mot-pay-credit-payment [idUser]="idUser"></mot-pay-credit-payment></mat-tab>
+        <mat-tab label="Histórico"><mot-payment-history [idUser]="idUser" [idPay]="idPago"></mot-payment-history></mat-tab>
+    </mat-tab-group>
+</div>

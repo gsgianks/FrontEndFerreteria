@@ -5,9 +5,7 @@ import { MaterialModule } from 'src/app/shared/material/material.module';
 import { CreditRoutingModule } from './credit-routing.module';
 import { AgGridModule } from 'ag-grid-angular';
 import * as CreditComponents from '.';
-import { CreditTableComponent } from './credit-table/Credit-table.component';
 import { ConfirmationDialogService } from '../shared/confirmation-dialog/confirmation-dialog.service';
-import { CreditUserListComponent } from './credit-user-list/credit-user-list.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +13,7 @@ import { CreditUserListComponent } from './credit-user-list/credit-user-list.com
     CreditComponents.CreditEditComponent,
     CreditComponents.CreditDisplayComponent,
     CreditComponents.CreditTableComponent,
-    CreditUserListComponent,
+    CreditComponents.CreditUserListComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +29,9 @@ import { CreditUserListComponent } from './credit-user-list/credit-user-list.com
   ],
   providers: [
     ConfirmationDialogService
+  ],
+  exports: [
+    CreditComponents.CreditTableComponent
   ]
 })
 export class CreditModule { }

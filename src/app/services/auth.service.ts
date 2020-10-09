@@ -40,7 +40,8 @@ export class AuthService extends CacheService {
         const result = decode(value.access_Token);
         this.setName(result.unique_name);
         return result as IAuthStatus;
-      }),
+      })
+      ,
       catchError(transformError)
     );
 

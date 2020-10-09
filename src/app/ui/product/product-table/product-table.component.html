@@ -5,52 +5,52 @@
   </mat-form-field>
   
   <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort>
+    <mat-table mat-table [dataSource]="dataSource" matSort>
   
       <!-- Nombre Column -->
       <ng-container matColumnDef="nombre">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
-        <td mat-cell *matCellDef="let row"> {{row.nombre}} </td>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="Nombre"> {{row.nombre}} </mat-cell>
       </ng-container>
   
       <!-- Precio Costo Column -->
       <ng-container matColumnDef="precio_Costo">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio Costo </th>
-        <td mat-cell *matCellDef="let row"> {{row.precio_Costo}} </td>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Precio Costo </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="Precio Costo"> {{row.precio_Costo}} </mat-cell>
       </ng-container>
   
       <!-- Precio Venta Column -->
       <ng-container matColumnDef="precio_Venta">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio Venta </th>
-        <td mat-cell *matCellDef="let row"> {{row.precio_Venta}} </td>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Precio Venta </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="Precio Venta"> {{row.precio_Venta}} </mat-cell>
       </ng-container>
 
       <!-- Activo Column -->
       <ng-container matColumnDef="estado">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
-        <td mat-cell *matCellDef="let row" > {{row.estado}} </td>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="Estado"> {{row.estado}} </mat-cell>
       </ng-container>
 
       <!-- Cantidad Column -->
       <ng-container matColumnDef="stock">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock </th>
-        <td mat-cell *matCellDef="let row" > {{row.stock}} </td>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Stock </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="Stock"> {{row.stock}} </mat-cell>
       </ng-container>
       
       <!-- Actions Column -->
       <ng-container matColumnDef="actionsColumn">
-        <th mat-header-cell *matHeaderCellDef>
+        <mat-header-cell *matHeaderCellDef>
             <button class="m-2" mat-raised-button color="primary" (click)="goEdit(0)"><mat-icon>add</mat-icon>Agregar</button> 
-        </th>
-        <td mat-cell *matCellDef="let row"> 
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row"> 
             <button mat-button type="button" color="primary" (click)="goEdit(row.id)"><mat-icon>edit</mat-icon>Editar</button>
             <button mat-button type="button" color="warn" (click)="delete(row.id)"><mat-icon>delete</mat-icon>Eliminar</button> 
-        </td>
+        </mat-cell>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
   
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
   </div>

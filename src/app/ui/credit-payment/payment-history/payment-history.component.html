@@ -1,0 +1,58 @@
+<div class="container-fluid p-3 row">
+
+<div class="mat-elevation-z8 col-md-5 col-sm-12">
+  <button class="m-2" mat-raised-button color="primary" (click)="getAll()"><mat-icon>search</mat-icon>Buscar</button> 
+  <mat-form-field class="col-md-4 col-sm-12">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+  <mat-table [dataSource]="dataSource" matSort>
+
+    <!-- Usuario Column -->
+    <ng-container matColumnDef="nombre_Usuario">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="Usuario"> {{row.nombre_Usuario}} </mat-cell>
+    </ng-container>
+
+      <!-- Monto Column -->
+      <ng-container matColumnDef="monto">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Monto </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="Monto"> {{row.monto | number:'1.1-2'}} </mat-cell>
+    </ng-container>
+
+      <!-- Abono Column -->
+      <ng-container matColumnDef="abono">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Pago </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="Pago"> {{row.abono | number:'1.1-2'}} </mat-cell>
+    </ng-container>
+
+    <!-- Saldo Column -->
+    <ng-container matColumnDef="saldo">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Saldo </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="Saldo"> {{row.saldo | number:'1.1-2'}} </mat-cell>
+    </ng-container>
+
+    <!-- Fecha Column -->
+    <ng-container matColumnDef="fecha_Creacion">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="Fecha"> {{row.fecha_Creacion | date: 'yyyy-MM-dd hh:mm'}} </mat-cell>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actionsColumn">
+      <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+      <mat-cell *matCellDef="let row"> 
+          <button mat-button type="button" color="primary" (click)="setIdPago(row.id)"><mat-icon>preview</mat-icon></button>             
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
+<div class="col-md-7 col-sm-12" [hidden]="isHidden">
+  <mot-display-credit-payment [payment]="paymentModel"></mot-display-credit-payment>
+  <mot-credit-table [estado]="estado" [idPago]="idPay"></mot-credit-table>
+</div>
+  
+</div>

@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  urlService: 'http://192.168.1.10:55043/api'
+  urlService: 'http://192.168.1.9:55043/api'
 };

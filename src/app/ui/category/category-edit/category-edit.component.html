@@ -1,0 +1,39 @@
+<div class="container-fluid p-3">
+    <div class="row header">
+      <div class="col-12">
+        <h2 class="float-left">Categoría</h2>
+      </div>
+    </div>
+      <div class="row">
+        <div class="col-md-4 col-sm-12 pt-2">
+          
+          <form [formGroup]="form" (ngSubmit)="submit()">
+            <div [hidden]="true">
+              <mat-form-field>
+                <input matInput formControlName="id" />
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <div class="col-md-12 col-sm-12">
+                <div>
+                    <mat-form-field class="col-12">
+                        <input matInput placeholder="Descripción" formControlName="descripcion" />
+                        <mat-error *ngIf="messages.nombre_Producto">
+                        {{ messages.nombre_Producto}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+              </div>
+              <div class="col-12">
+                <button mat-raised-button type="button" color="primary" (click)="goToList()"><mat-icon>arrow_back_ios</mat-icon>Volver</button>   
+                <button mat-raised-button class="ml-3" color="primary" type="submit"><mat-icon>save</mat-icon>Guardar</button>                   
+              </div>
+            </div>
+          </form>
+        </div>
+    </div>
+  </div>
+  
+    
+    
+    

@@ -30,6 +30,10 @@ const routes: Routes = [
     loadChildren: './ui/credit-payment/credit-payment.module#CreditPaymentModule'
   },
   {
+    path: 'category',
+    loadChildren: './ui/category/category.module#CategoryModule'
+  },
+  {
     path: 'login',
     component: LoginComponent
   },

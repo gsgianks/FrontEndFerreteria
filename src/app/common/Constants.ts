@@ -8,6 +8,7 @@ export class Constants {
     static Product = 'Producto';
     static User = 'Usuario';
     static CreditPayment = 'PagoCredito';
+    static Order = 'Pedido';
 
     //#endregion API Methods
 

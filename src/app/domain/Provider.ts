@@ -1,7 +1,7 @@
 export class Provider {
     id: number;
     nombre_Proveedor: string;
-    telelefono: string;
+    telefono: string;
     correo_Electronico: string;
     fecha_Creacion: string;
     usuario_Creacion: string;

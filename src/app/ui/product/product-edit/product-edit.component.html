@@ -56,7 +56,7 @@
         
               <div>
                 <mat-form-field class="col-12">
-                  <input matInput type="number" placeholder="Precio Costo" formControlName="precio_Costo" />
+                  <input matInput type="number" placeholder="Precio Costo" (ngModelChange)="calcPrice()" formControlName="precio_Costo" />
                   <mat-error *ngIf="messages.precio_Costo">
                     {{ messages.precio_Costo}}
                   </mat-error>
@@ -64,7 +64,7 @@
               </div>
               <div>
                 <mat-form-field class="col-12">
-                  <input matInput type="number" placeholder="Utilidad" formControlName="utilidad" />
+                  <input matInput type="number" placeholder="Utilidad" (ngModelChange)="calcPrice()" formControlName="utilidad" />
                   <mat-error *ngIf="messages.utilidad">
                     {{ messages.utilidad}}
                   </mat-error>
@@ -72,7 +72,7 @@
               </div>
               <div>
                 <mat-form-field class="col-12">
-                  <input matInput type="number" placeholder="Impuesto" formControlName="impuesto" />
+                  <input matInput type="number" placeholder="Impuesto" (ngModelChange)="calcPrice()" formControlName="impuesto" />
                   <mat-error *ngIf="messages.impuesto">
                     {{ messages.impuesto}}
                   </mat-error>
@@ -80,7 +80,7 @@
               </div>
               <div>
                 <mat-form-field class="col-12">
-                    <input matInput type="number" placeholder="Descuento" formControlName="descuento" />
+                    <input matInput type="number" placeholder="Descuento" (ngModelChange)="calcPrice()" formControlName="descuento" />
                     <mat-error *ngIf="messages.descuento">
                     {{ messages.descuento}}
                     </mat-error>
@@ -102,7 +102,7 @@
                       </mat-error>
                   </mat-form-field>
               </div>
-              <div>
+              <div *ngIf="model && model.id">
                 <mat-form-field class="col-12">
                     <input matInput placeholder="Estado" formControlName="estado"/>
                     <mat-error *ngIf="messages.estado">

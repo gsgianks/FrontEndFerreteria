@@ -1,63 +1,41 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { Product } from 'src/app/domain/Product';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ProductService } from 'src/app/services/product.service';
+import { takeUntil } from 'rxjs/operators';
+import { Constants } from 'src/app/common/Constants';
+import { Provider } from 'src/app/domain/Provider';
+import { BaseService } from 'src/app/services/base.service';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
 import { FormUtils } from '../../shared/formUtils';
-import { takeUntil } from 'rxjs/operators';
 import * as alertify from 'alertifyjs';
-import { BaseService } from 'src/app/services/base.service';
-import { Category } from 'src/app/domain/Category';
-import { Provider } from 'src/app/domain/Provider';
-import { Constants } from 'src/app/common/Constants';
-import { isNullOrUndefined } from 'util';
 
 const FIELD_REQUIRED = 'Campo Requerido.';
-const FIELDMA_MAXLEN_2 = 'Minimo 2 digitos.';
-const FIELD_MAXLEN_120 = 'Máximo 120 caracteres.';
-const FIELD_EMAIL = 'Email no válido.';
 
 @Component({
-  selector: 'mot-product-edit',
-  templateUrl: './product-edit.component.html',
-  styleUrls: ['./product-edit.component.scss']
+  selector: 'mot-provider-edit',
+  templateUrl: './provider-edit.component.html',
+  styleUrls: ['./provider-edit.component.scss']
 })
-export class ProductEditComponent implements OnInit {
+
+export class ProviderEditComponent implements OnInit {
 
   form: FormGroup;
-  model: Product = null;
+  model: Provider = null;
   updating = false;
-  categories: Category[] = [];
-  providers: Provider[] = [];
 
   private ngUnsubscribe: Subject<boolean> = new Subject();
 
   messages: any = {};
   formMessages: any = {
-      id_Proveedor: {
+      
+      nombre_Proveedor: {
         required: FIELD_REQUIRED,
       },
-      id_Categoria: {
+      telefono: {
         required: FIELD_REQUIRED,
       },
-      nombre: {
-        required: FIELD_REQUIRED,
-      },
-      precio_Costo: {
-        required: FIELD_REQUIRED,
-      },
-      precio_Venta: {
-        required: FIELD_REQUIRED,
-      },
-      utilidad: {
-        required: FIELD_REQUIRED,
-      },
-      impuesto: {
-        required: FIELD_REQUIRED,
-      },
-      stock: {
+      correo_Electronico: {
         required: FIELD_REQUIRED,
       }
   };
@@ -65,52 +43,26 @@ export class ProductEditComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private service: ProductService,
-    private serviceCategory: BaseService<Category>,
-    private serviceProvider: BaseService<Provider>,
+    private service: BaseService<Provider>,
     private fb: FormBuilder,
     private confirmationDialogService: ConfirmationDialogService
   ) {
    }
 
-  getCategories() {
-    this.serviceCategory.getAll(Constants.Category).subscribe(res => {
-      this.categories = res.items;
-    });
-  }
-
-  getProviders() {
-    this.serviceProvider.getAll(Constants.Provider).subscribe(res => {
-      this.providers = res.items;
-    });
-  }
-
   createForm(): void {
     this.form = this.fb.group({
       id: [null],
-      id_Proveedor: ['', [Validators.required]],
-      id_Categoria: ['', [Validators.required]],
-      nombre: ['', [Validators.required]],
-      precio_Costo: [null, [Validators.required]],
-      precio_Venta: [null, [Validators.required]],
-      utilidad: [null, [Validators.required]],
-      impuesto: [null, [Validators.required]],
-      stock: [null, [Validators.required]],
-      descuento: [0],
-      codigo_Barra: [''],
-      estado: ['']
+      nombre_Proveedor: ['', [Validators.required]],
+      telefono: ['', [Validators.required]],
+      correo_Electronico: ['', [Validators.required, Validators.email]],
     });
 
     const fieldsToWatch = [
-      'id_Proveedor',
-      'id_Categoria',
-      'nombre',
-      'precio_Costo',
-      'precio_Venta',
-      'utilidad',
-      'impuesto',
-      'stock'
+      'nombre_Proveedor',
+      'telefono',
+      'correo_Electronico',
     ];
+
     if (this.model) {
       FormUtils.toFormGroup(this.form, this.model);
     }
@@ -139,7 +91,7 @@ export class ProductEditComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
 
     if (id) {
-      this.service.getById(id).subscribe( res => {
+      this.service.getById(Constants.Provider,id).subscribe( res => {
         if (res.codigo === 0) {
           this.model = res.items[0];
           FormUtils.toFormGroup(this.form, this.model);
@@ -151,13 +103,9 @@ export class ProductEditComponent implements OnInit {
     } else {
       this.model = {
         id: 0
-      } as Product;
+      } as Provider;
       FormUtils.toFormGroup(this.form, this.model);
     }
-
-    // Obtener las Categorias
-    this.getCategories();
-    this.getProviders();
   }
 
   // tslint:disable-next-line: use-lifecycle-interface
@@ -169,6 +117,7 @@ export class ProductEditComponent implements OnInit {
   submit() {
 
     if (!this.form.valid) {
+      console.log(this.form);
       alertify.error('Formulario inválido');
     } else {
       FormUtils.toModel(this.form, this.model);
@@ -179,7 +128,7 @@ export class ProductEditComponent implements OnInit {
 
   saveModel(): void {
     if (this.model.id) {
-      this.service.update(this.model).subscribe(res => {
+      this.service.update(Constants.Provider, this.model).subscribe(res => {
         if (res.codigo === 0) {
           alertify.success(res.descripcion);
         } else {
@@ -187,7 +136,7 @@ export class ProductEditComponent implements OnInit {
         }
       });
     } else {
-      this.service.insert(this.model).subscribe(res => {
+      this.service.post(Constants.Provider,this.model).subscribe(res => {
         if (res.codigo === 0) {
           this.form.controls.id.setValue(res.items[0].id);
           this.model = res.items[0];
@@ -201,7 +150,7 @@ export class ProductEditComponent implements OnInit {
   }
 
   goToList(): void {
-    this.router.navigate(['./product']);
+    this.router.navigate(['./provider']);
   }
 
   delete(id: number): void {
@@ -209,7 +158,7 @@ export class ProductEditComponent implements OnInit {
     this.confirmationDialogService.confirm('Confirmación', '¿Desea eliminar el registro?')
     .then((confirmed) => {
       if (confirmed) {
-        this.service.delete(id)
+        this.service.delete(Constants.Provider, id)
           .subscribe(response => {
             if (response.codigo === 0) {
               alertify.success(response.descripcion);
@@ -227,18 +176,4 @@ export class ProductEditComponent implements OnInit {
     return model ? model.Id : undefined;
   }
 
-  calcPrice(){
-    var precio_Costo = this.form.value['precio_Costo'];
-    var impuesto = this.form.value['impuesto'];
-    var descuento = this.form.value['descuento'];
-    var utilidad = this.form.value['utilidad'];
-    if(!isNullOrUndefined(precio_Costo) && !isNullOrUndefined(impuesto) && !isNullOrUndefined(descuento) && !isNullOrUndefined(utilidad)){
-      var precioFinal = precio_Costo+(precio_Costo*impuesto/100);
-      precioFinal += precioFinal*utilidad/100;
-      precioFinal += precioFinal*descuento/100;
-      this.form.controls.precio_Venta.setValue(precioFinal);
-    }else{
-      this.form.controls.precio_Venta.setValue(null);
-    };
-  }
 }

@@ -34,6 +34,14 @@ const routes: Routes = [
     loadChildren: './ui/category/category.module#CategoryModule'
   },
   {
+    path: 'provider',
+    loadChildren: './ui/provider/provider.module#ProviderModule'
+  },
+  {
+    path: 'order',
+    loadChildren: './ui/order/order.module#OrderModule'
+  },
+  {
     path: 'login',
     component: LoginComponent
   },

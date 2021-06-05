@@ -1,42 +1,47 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
-import { Category } from 'src/app/domain/Category';
+import { Constants } from 'src/app/common/Constants';
+import { Order } from 'src/app/domain/Order';
 import { BaseService } from 'src/app/services/base.service';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
 import * as alertify from 'alertifyjs';
-import { Constants } from 'src/app/common/Constants';
 
 @Component({
-  selector: 'mot-category-table',
-  templateUrl: './category-table.component.html',
-  styleUrls: ['./category-table.component.scss']
+  selector: 'mot-order-table',
+  templateUrl: './order-table.component.html',
+  styleUrls: ['./order-table.component.scss']
 })
-export class CategoryTableComponent implements OnInit {
+export class OrderTableComponent implements OnInit {
 
   displayedColumns: string[] = [
-    'descripcion',
+    'nombre_Usuario',
+    'fecha_Creacion',
+    'estado',
+    'direccion',
+    'fecha_Entrega',
     'actionsColumn'
   ];
-  dataSource: MatTableDataSource<Category>;
-  rowData: Category[] = [];
+  dataSource: MatTableDataSource<Order>;
+  rowData: Order[] = [];
+  @Input() estado: string;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(
-    private service: BaseService<Category>,
+    private service: BaseService<Order>,
     private router: Router,
     private confirmationDialogService: ConfirmationDialogService
   ) {
-    this.getAll();
     this.dataSource = new MatTableDataSource();
    }
 
-   ngOnInit() {
+  ngOnInit() {
 
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.getAll();
   }
 
   applyFilter(event: Event) {
@@ -49,17 +54,14 @@ export class CategoryTableComponent implements OnInit {
   }
 
   getAll(): void {
-    this.service.getAll(Constants.Category)
-    .subscribe(
-      response => {
-        this.dataSource.data = response.items;
+    this.service.getAll(Constants.Order).subscribe(r => {
+        if (r.codigo === 0) {
+          this.dataSource.data = r.items;
+        } else {
+          alertify.error(r.descripcion);
+        }
       }
     );
-  }
-
-  goEdit(id: number) {
-    this.router.navigate(['/category', 'edit', id]);
-
   }
 
   showError(error: any): void {
@@ -72,7 +74,7 @@ export class CategoryTableComponent implements OnInit {
     this.confirmationDialogService.confirm('Confirmación', '¿Desea eliminar el registro?')
     .then((confirmed) => {
       if (confirmed) {
-        this.service.delete(Constants.Category, id)
+        this.service.delete(Constants.Order, id)
           .subscribe(response => {
             if (response.codigo === 0) {
               this.getAll();
@@ -85,6 +87,10 @@ export class CategoryTableComponent implements OnInit {
     })
     .catch(() => {});
 
+  }
+
+  goEdit(id: number) {
+    this.router.navigate(['/order', 'edit', id]);
   }
 
 }

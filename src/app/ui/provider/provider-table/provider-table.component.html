@@ -1,0 +1,48 @@
+<button class="m-2" mat-raised-button color="primary" (click)="getAll()"><mat-icon>search</mat-icon>Buscar</button> 
+<mat-form-field class="col-md-4 col-sm-12">
+    <mat-label>Filtro</mat-label>
+    <input matInput (keyup)="applyFilter($event)">
+  </mat-form-field>
+  
+  <div class="mat-elevation-z8">
+    <mat-table mat-table [dataSource]="dataSource" matSort>
+
+      <!-- Nombre Proveedor -->
+      <ng-container matColumnDef="nombre_Proveedor">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="nombre_Proveedor"> {{row.nombre_Proveedor}} </mat-cell>
+        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+      </ng-container>
+
+    <!-- Teléfono Proveedor -->
+    <ng-container matColumnDef="telefono">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Teléfono </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="telefono"> {{row.telefono}} </mat-cell>
+        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+    </ng-container>
+
+    <!-- Correo eléctronico Proveedor -->
+    <ng-container matColumnDef="correo_Electronico">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Correo </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="correo_Electronico"> {{row.correo_Electronico}} </mat-cell>
+        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+    </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actionsColumn">
+        <mat-header-cell *matHeaderCellDef>
+          <button class="m-2" mat-raised-button color="primary" (click)="goEdit(0)"><mat-icon>add</mat-icon>Agregar</button> 
+      </mat-header-cell>
+        <mat-cell *matCellDef="let row"> 
+          <button mat-button type="button" color="primary" (click)="goEdit(row.id)"><mat-icon>edit</mat-icon>Editar</button>
+          <button mat-button type="button" color="warn" (click)="delete(row.id)"><mat-icon>delete</mat-icon>Eliminar</button> 
+      </mat-cell>
+        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>

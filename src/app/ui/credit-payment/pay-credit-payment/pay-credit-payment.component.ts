@@ -131,7 +131,10 @@ export class PayCreditPaymentComponent implements OnInit {
           this.createForm();
           alertify.success(res.descripcion);
           this.child.getAll();
-        } else {
+        } else if (res.codigo === 1) {
+          alertify.success(res.descripcion);
+          alertify.alert('El vuelto es de:', res.datoExtra, function(){});
+        }else {
           alertify.error(res.descripcion);
         }
       });
@@ -142,7 +145,9 @@ export class PayCreditPaymentComponent implements OnInit {
   }
 
   changePay() {
-    this.form.controls.saldo.setValue(this.modelCredit.saldo - this.form.value['abono']);
+    var diferencia = this.modelCredit.saldo - this.form.value['abono'];
+    this.form.controls.saldo.setValue(diferencia < 0?0:diferencia);
+    
   }
 
 }

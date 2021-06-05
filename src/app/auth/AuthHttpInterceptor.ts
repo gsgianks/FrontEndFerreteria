@@ -18,6 +18,7 @@ export class AuthHttpInterceptor implements HttpInterceptor {
                                                     // , 'Access-Control-Allow-Headers': 'X-API-KEY, Origin, X-Requested-With, ' +
                                                     // 'Content-Type, Accept, Access-Control-Request-Method'
                                                     // , 'Access-Control-Allow-Methods' : 'GET, POST, OPTIONS, PUT, DELETE'
+                                                    ,user: this.authService.getName()
                                                 }});
 
         return next.handle(authRequest).pipe(

@@ -1,0 +1,62 @@
+<button class="m-2" mat-raised-button color="primary" (click)="getAll()"><mat-icon>search</mat-icon>Buscar</button> 
+<mat-form-field class="col-md-4 col-sm-12">
+    <mat-label>Filtro</mat-label>
+    <input matInput (keyup)="applyFilter($event)">
+  </mat-form-field>
+  
+  <div class="mat-elevation-z8">
+    <mat-table mat-table [dataSource]="dataSource" matSort>
+
+      <!-- Nombre Usuario Column -->
+      <ng-container matColumnDef="nombre_Usuario">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="Usuario"> {{row.nombre_Usuario}} </mat-cell>
+        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+      </ng-container>
+
+       <!-- Fecha Creación Column -->
+       <ng-container matColumnDef="fecha_Creacion">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha pedido </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="Fecha pedido"> {{row.fecha_Creacion | date: 'yyyy-MM-dd hh:mm:ss'}} </mat-cell>
+        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+      </ng-container>
+
+    <!-- Estado Column -->
+    <ng-container matColumnDef="estado">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="Estado"> {{row.estado }} </mat-cell>
+        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+    </ng-container>
+
+       <!-- Dirección Column -->
+       <ng-container matColumnDef="direccion">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Dirección </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="Dirección"> {{row.direccion }} </mat-cell>
+        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+      </ng-container>
+
+      <!-- Fecha Entrega Column -->
+      <ng-container matColumnDef="fecha_Entrega">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha entrega </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="Fecha entrega"> {{row.fecha_Entrega | date: 'yyyy-MM-dd hh:mm:ss'}} </mat-cell>
+        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actionsColumn">
+        <mat-header-cell *matHeaderCellDef>
+            <button class="m-2" mat-raised-button color="primary" (click)="goEdit(0)"><mat-icon>add</mat-icon>Agregar</button> 
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row"> 
+            <button mat-button type="button" color="primary" (click)="goEdit(row.id)"><mat-icon>edit</mat-icon>Editar</button>
+        </mat-cell>
+        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <mat-footer-row *matFooterRowDef="displayedColumns;"></mat-footer-row>
+
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>

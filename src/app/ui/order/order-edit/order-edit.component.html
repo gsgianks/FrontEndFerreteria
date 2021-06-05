@@ -1,0 +1,65 @@
+<div class="container-fluid p-3">
+    <div class="row header">
+      <div class="col-12">
+        <h2 class="float-left">Pedido</h2>
+      </div>
+    </div>
+      <div class="row">
+        <div class="col-md-4 col-sm-12 pt-2">
+          
+          <form [formGroup]="form" (ngSubmit)="submit()">
+            <div [hidden]="true">
+              <mat-form-field>
+                <input matInput formControlName="id" />
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <div class="col-md-12 col-sm-12">
+                <div>
+                    <mat-form-field class="col-12">
+                        <input matInput type="number" placeholder="Usuario" formControlName="id_Usuario" />
+                        <mat-error *ngIf="messages.id_Usuario">
+                        {{ messages.id_Usuario}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+              </div>
+              <div class="col-md-12 col-sm-12">
+                <div>
+                    <mat-form-field class="col-12">
+                        <input matInput placeholder="Nombre Usuario" formControlName="nombre_Usuario" />
+                        <mat-error *ngIf="messages.nombre_Usuario">
+                        {{ messages.nombre_Usuario}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+              </div>
+              <div class="col-md-12 col-sm-12">
+                <div>
+                    <mat-form-field class="col-12">
+                        <input matInput placeholder="Dirección" formControlName="direccion" />
+                        <mat-error *ngIf="messages.direccion">
+                        {{ messages.direccion}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+              </div>
+              <div class="col-md-12 col-sm-12">
+                <div>
+                    <mat-form-field class="col-12">
+                        <input matInput placeholder="Entrega" type="date" formControlName="fecha_Entrega" />
+                        <mat-error *ngIf="messages.fecha_Entrega">
+                        {{ messages.fecha_Entrega}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+              </div>
+              <div class="col-12">
+                <button mat-raised-button type="button" color="primary" (click)="goToList()"><mat-icon>arrow_back_ios</mat-icon>Volver</button>   
+                <button mat-raised-button class="ml-3" color="primary" type="submit"><mat-icon>save</mat-icon>Guardar</button>                   
+              </div>
+            </div>
+          </form>
+        </div>
+    </div>
+  </div>

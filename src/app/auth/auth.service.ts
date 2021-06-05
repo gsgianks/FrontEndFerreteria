@@ -61,6 +61,10 @@ export class AuthService extends CacheService {
     this.setItem('jwt', jwt);
   }
 
+  getName(): string {
+    return this.getItem('user') || '';
+  }
+
   getToken(): string {
     return this.getItem('jwt') || '';
   }

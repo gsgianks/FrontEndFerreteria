@@ -8,7 +8,7 @@
                   <div class="login-control-input row">
                     <mat-icon class="col-1">email</mat-icon>
                     <mat-form-field class="login-form-field col-11">
-                      <input matInput placeholder="Correo" aria-label="text" formControlName="correoElectronico">
+                      <input matInput placeholder="Identificación" aria-label="text" formControlName="correoElectronico">
                       <mat-error *ngIf="loginForm.get('correoElectronico').hasError('required')">Requerido</mat-error>
                       <mat-error *ngIf="loginForm.get('correoElectronico').hasError('cannotContainSpace')">No puede contener espacios</mat-error>
                     </mat-form-field>

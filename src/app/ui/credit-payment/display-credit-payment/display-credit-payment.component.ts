@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CreditPayment } from 'src/app/domain/Credit-Payment';
 
 @Component({
-  selector: 'mot-display-credit-payment',
+  selector: 'ferr-display-credit-payment',
   templateUrl: './display-credit-payment.component.html',
   styleUrls: ['./display-credit-payment.component.scss']
 })

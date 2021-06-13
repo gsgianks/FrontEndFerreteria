@@ -7,7 +7,7 @@ import * as alertify from 'alertifyjs';
 import { ConfirmationDialogService } from '../../shared/confirmation-dialog/confirmation-dialog.service';
 
 @Component({
-  selector: 'mot-user-table',
+  selector: 'ferr-user-table',
   templateUrl: './user-table.component.html',
   styleUrls: ['./user-table.component.scss']
 })

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'mot-credit-view',
+  selector: 'ferr-credit-view',
   templateUrl: './credit-view.component.html',
   styleUrls: ['./credit-view.component.scss']
 })

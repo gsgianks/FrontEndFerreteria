@@ -8,7 +8,7 @@ import { ConfirmationDialogService } from '../../shared/confirmation-dialog/conf
 import * as alertify from 'alertifyjs';
 
 @Component({
-  selector: 'mot-order-table',
+  selector: 'ferr-order-table',
   templateUrl: './order-table.component.html',
   styleUrls: ['./order-table.component.scss']
 })

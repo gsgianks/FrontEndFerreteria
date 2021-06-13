@@ -15,7 +15,7 @@ const FIELD_EMAIL = 'Email no válido.';
 
 
 @Component({
-  selector: 'mot-user-edit',
+  selector: 'ferr-user-edit',
   templateUrl: './user-edit.component.html',
   styleUrls: ['./user-edit.component.scss']
 })

@@ -15,7 +15,7 @@ import { Credit } from 'src/app/domain/Credit';
 const FIELD_REQUIRED = 'Campo Requerido.';
 
 @Component({
-  selector: 'mot-pay-credit-payment',
+  selector: 'ferr-pay-credit-payment',
   templateUrl: './pay-credit-payment.component.html',
   styleUrls: ['./pay-credit-payment.component.scss']
 })

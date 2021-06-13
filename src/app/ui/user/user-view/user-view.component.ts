@@ -4,7 +4,7 @@ import { User } from 'src/app/domain/User';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
-  selector: 'mot-user-view',
+  selector: 'ferr-user-view',
   templateUrl: './user-view.component.html',
   styleUrls: ['./user-view.component.scss']
 })

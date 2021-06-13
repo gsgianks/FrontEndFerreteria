@@ -14,6 +14,9 @@ import { AuthService } from './services/auth.service';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthHttpInterceptor } from './auth/AuthHttpInterceptor';
 import { ConfirmationDialogComponent } from './ui/shared/confirmation-dialog/confirmation-dialog.component';
+import { OrderDetailViewComponent } from './ui/order-detail/order-detail-view/order-detail-view.component';
+import { OrderDetailTableComponent } from './ui/order-detail/order-detail-table/order-detail-table.component';
+import { OrderDetailEditComponent } from './ui/order-detail/order-detail-edit/order-detail-edit.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +25,9 @@ import { ConfirmationDialogComponent } from './ui/shared/confirmation-dialog/con
     NavBarComponent,
     LogoutComponent,
     ConfirmationDialogComponent,
+    OrderDetailViewComponent,
+    OrderDetailTableComponent,
+    OrderDetailEditComponent,
   ],
   imports: [
     BrowserModule,

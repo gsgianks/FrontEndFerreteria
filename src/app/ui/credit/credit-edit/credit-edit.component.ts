@@ -16,7 +16,7 @@ import { CreditTableComponent } from '../credit-table/credit-table.component';
 const FIELD_REQUIRED = 'Campo Requerido.';
 
 @Component({
-  selector: 'mot-credit-edit',
+  selector: 'ferr-credit-edit',
   templateUrl: './credit-edit.component.html',
   styleUrls: ['./credit-edit.component.scss']
 })

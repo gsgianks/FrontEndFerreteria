@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { Constants } from 'src/app/common/Constants';
 
 @Component({
-  selector: 'mot-credit-table',
+  selector: 'ferr-credit-table',
   templateUrl: './credit-table.component.html',
   styleUrls: ['./credit-table.component.scss']
 })

@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'mot-confirmation-dialog',
+  selector: 'ferr-confirmation-dialog',
   templateUrl: './confirmation-dialog.component.html',
 })
 export class ConfirmationDialogComponent implements OnInit {

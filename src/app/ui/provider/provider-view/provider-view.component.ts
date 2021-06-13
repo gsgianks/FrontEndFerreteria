@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'mot-provider-view',
+  selector: 'ferr-provider-view',
   templateUrl: './provider-view.component.html',
   styleUrls: ['./provider-view.component.scss']
 })

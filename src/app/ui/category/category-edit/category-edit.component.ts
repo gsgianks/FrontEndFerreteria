@@ -15,7 +15,7 @@ const FIELDMA_MAXLEN_2 = 'Minimo 2 digitos.';
 const FIELD_MAXLEN_120 = 'Máximo 120 caracteres.';
 const FIELD_EMAIL = 'Email no válido.';
 @Component({
-  selector: 'mot-category-edit',
+  selector: 'ferr-category-edit',
   templateUrl: './category-edit.component.html',
   styleUrls: ['./category-edit.component.scss']
 })

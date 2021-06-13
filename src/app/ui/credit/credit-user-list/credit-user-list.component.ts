@@ -8,7 +8,7 @@ import { Constants } from 'src/app/common/Constants';
 import { Credit } from 'src/app/domain/Credit';
 
 @Component({
-  selector: 'mot-credit-user-list',
+  selector: 'ferr-credit-user-list',
   templateUrl: './credit-user-list.component.html',
   styleUrls: ['./credit-user-list.component.scss']
 })

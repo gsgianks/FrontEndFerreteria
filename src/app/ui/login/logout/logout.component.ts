@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'mot-logout',
+  selector: 'ferr-logout',
   template: `
   <p>
   Logging out...

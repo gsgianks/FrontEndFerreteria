@@ -8,7 +8,7 @@ import { Constants } from 'src/app/common/Constants';
 import { CreditTableComponent } from '../../credit';
 
 @Component({
-  selector: 'mot-payment-history',
+  selector: 'ferr-payment-history',
   templateUrl: './payment-history.component.html',
   styleUrls: [ './payment-history.component.scss' ]
 })

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { WhiteSpaceValidator } from 'src/app/shared/validators/whiteSpaceValidator';
 
 @Component({
-  selector: 'mot-login',
+  selector: 'ferr-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })

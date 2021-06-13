@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/domain/User';
 
 @Component({
-  selector: 'mot-view-credit-payment',
+  selector: 'ferr-view-credit-payment',
   templateUrl: './view-credit-payment.component.html',
   styleUrls: ['./view-credit-payment.component.scss']
 })

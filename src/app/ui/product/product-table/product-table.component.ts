@@ -7,7 +7,7 @@ import { ConfirmationDialogService } from '../../shared/confirmation-dialog/conf
 import * as alertify from 'alertifyjs';
 
 @Component({
-  selector: 'mot-product-table',
+  selector: 'ferr-product-table',
   templateUrl: './product-table.component.html',
   styleUrls: ['./product-table.component.scss']
 })

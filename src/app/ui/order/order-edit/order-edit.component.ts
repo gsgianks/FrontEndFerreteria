@@ -13,7 +13,7 @@ import * as alertify from 'alertifyjs';
 const FIELD_REQUIRED = 'Campo Requerido.';
 
 @Component({
-  selector: 'mot-order-edit',
+  selector: 'ferr-order-edit',
   templateUrl: './order-edit.component.html',
   styleUrls: ['./order-edit.component.scss']
 })

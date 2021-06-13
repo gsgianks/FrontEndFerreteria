@@ -8,7 +8,7 @@ import * as alertify from 'alertifyjs';
 import { Constants } from 'src/app/common/Constants';
 
 @Component({
-  selector: 'mot-category-table',
+  selector: 'ferr-category-table',
   templateUrl: './category-table.component.html',
   styleUrls: ['./category-table.component.scss']
 })

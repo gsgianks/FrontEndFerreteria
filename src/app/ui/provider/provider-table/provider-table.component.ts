@@ -7,7 +7,7 @@ import * as alertify from 'alertifyjs';
 import { Constants } from 'src/app/common/Constants';
 
 @Component({
-  selector: 'mot-provider-table',
+  selector: 'ferr-provider-table',
   templateUrl: './provider-table.component.html',
   styleUrls: ['./provider-table.component.scss']
 })

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'mot-product-view',
+  selector: 'ferr-product-view',
   templateUrl: './product-view.component.html',
   styleUrls: ['./product-view.component.scss']
 })

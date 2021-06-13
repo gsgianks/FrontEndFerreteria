@@ -20,7 +20,7 @@ const FIELD_MAXLEN_120 = 'Máximo 120 caracteres.';
 const FIELD_EMAIL = 'Email no válido.';
 
 @Component({
-  selector: 'mot-product-edit',
+  selector: 'ferr-product-edit',
   templateUrl: './product-edit.component.html',
   styleUrls: ['./product-edit.component.scss']
 })

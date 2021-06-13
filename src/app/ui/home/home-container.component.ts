@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'mot-home-container',
+  selector: 'ferr-home-container',
   templateUrl: './home-container.component.html',
   styleUrls: ['./home-container.component.scss']
 })

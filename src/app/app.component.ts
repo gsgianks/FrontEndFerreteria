@@ -2,14 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 
 @Component({
-  selector: 'mot-root',
+  selector: 'ferr-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'taller-motos';
+  title = 'ferreteria';
 
   DisplayLogin = false;
+  year: number = new Date().getFullYear();
 
   constructor(private authService: AuthService) {
 
